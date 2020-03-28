@@ -9,13 +9,18 @@ import java.util.List;
 
 public class ComplexityAnalysis {
 
-    private final RunningTimePlotter plotter = new XYSeriesPlotter();
+    public static final int MIN_INPUT_SIZE = 0;
+    public static final int MAX_INPUT_SIZE = 15000000;
+    public static final int INCREMENT_SIZE = 250000;
+
+    private final RunningTimePlotter plotter = new XYSeriesPlotter(MAX_INPUT_SIZE, MIN_INPUT_SIZE);
 
     public static void main(String[] args) throws Exception {
         ComplexityAnalysis analysis = new ComplexityAnalysis();
         List<Sort> sortingAlgorithms = List.of(
                 new MergeSort(),
-                new InsertionSort()
+                new InsertionSort(),
+                new BubbleSort()
         );
 
         for (Sort sortingAlgorithm : sortingAlgorithms) {
@@ -26,7 +31,7 @@ public class ComplexityAnalysis {
     }
 
     public void analyze(Sort sort) {
-        var inputSource = new RandomIntArraySource(10000, 400000, 20000);
+        var inputSource = new RandomIntArraySource(MIN_INPUT_SIZE, MAX_INPUT_SIZE, INCREMENT_SIZE);
         //var inputSource = new FileInputSource();
 
         while (inputSource.hasNext()) {
@@ -36,7 +41,7 @@ public class ComplexityAnalysis {
     }
 
     public void plot() throws Exception {
-        plotter.plot("Sorting Algorithms Complexity Analysis", "Input Size", "Running Time (ns)");
+        plotter.plot("Sorting Algorithms Complexity Analysis", "Input Size", "Running Time (ms)");
     }
 
     private void run(Sort sort, int[] input) {

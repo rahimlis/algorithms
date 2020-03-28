@@ -12,6 +12,13 @@ public class XYSeriesPlotter implements RunningTimePlotter {
     private final XYSeriesCollection dataset = new XYSeriesCollection();
     private final Map<String, XYSeries> seriesMap = new HashMap<>();
 
+    private final int max, min;
+
+    public XYSeriesPlotter(int max, int min) {
+        this.max = max;
+        this.min = min;
+    }
+
     @Override
     public void addDataPoint(String tag, int inputSize, double runningTime) {
         var series = seriesMap.get(tag);
@@ -25,9 +32,13 @@ public class XYSeriesPlotter implements RunningTimePlotter {
 
     @Override
     public void plot(String title, String xAxis, String yAxis) throws Exception {
-        UI.plotXYLineChart(title, xAxis, yAxis, dataset, 500);
+        UI.plotXYLineChart(title, xAxis, yAxis, dataset, calculateTick());
         synchronized (this) {
             wait();
         }
+    }
+
+    private int calculateTick() {
+        return (max - min) / 10;
     }
 }
