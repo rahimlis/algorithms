@@ -50,8 +50,8 @@ public class ComplexityAnalysis {
         long end = sample();
         double time = (end - start) / 1000000.0;
 
-        plotter.addDataPoint(sort.getClass().getSimpleName(), input.length, time);
-        Logger.debug("%s input: %d runningTime: %f\n", sort.getClass().getSimpleName(), input.length, time);
+        plotter.addDataPoint(sort.tag(), input.length, time);
+        Logger.debug("%s input: %d runningTime: %f\n", sort.tag(), input.length, time);
     }
 
     private long sample() {

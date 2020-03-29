@@ -36,7 +36,7 @@ public class SortTest {
 
     @Test
     public void test() {
-        Sort sort = new InsertionSort();
+        Sort sort = new MergeInsertionSort(16);
         sort.sort(input, order);
         assertArrayEquals(input, expected);
     }
