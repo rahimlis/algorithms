@@ -3,22 +3,17 @@ package com.bakudynamics.sort;
 public class MergeSort implements Sort {
 
     @Override
-    public void sort(int[] a) {
-        sort(a, Order.ASC);
-    }
-
-    @Override
-    public void sort(int[] a, Order order) {
+    public void sort(Comparable[] a, Order order) {
         if (a == null || a.length == 0) return;
         mergeSort(a, a.length, order);
     }
 
-    private void mergeSort(int[] a, int n, Order order) {
+    private void mergeSort(Comparable[] a, int n, Order order) {
         if (n < 2) return;
 
         int mid = n / 2;
-        int[] l = new int[mid];
-        int[] r = new int[n - mid];
+        Comparable[] l = new Comparable[mid];
+        Comparable[] r = new Comparable[n - mid];
 
         System.arraycopy(a, 0, l, 0, mid);
         System.arraycopy(a, mid, r, 0, n - mid);
@@ -32,16 +27,16 @@ public class MergeSort implements Sort {
 
     }
 
-    private void merge(int[] a, int[] l, int[] r, int leftLength, int rightLength, Order order) {
+    protected void merge(Comparable[] a, Comparable[] l, Comparable[] r, int leftLength, int rightLength, Order order) {
         int leftIndex = 0;
         int rightIndex = 0;
         int arrayIndex = 0;
 
         while (leftIndex < leftLength && rightIndex < rightLength) {
-            if (l[leftIndex] < r[rightIndex]) {
-                a[arrayIndex++] = order == Order.ASC ? l[leftIndex++] : r[rightIndex++];
+            if (isPreceding(l[leftIndex], r[rightIndex], order)) {
+                a[arrayIndex++] = l[leftIndex++];
             } else {
-                a[arrayIndex++] = order == Order.ASC ? r[rightIndex++] : l[leftIndex++];
+                a[arrayIndex++] = r[rightIndex++];
             }
         }
 

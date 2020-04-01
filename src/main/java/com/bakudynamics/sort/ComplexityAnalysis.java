@@ -6,6 +6,7 @@ import com.bakudynamics.ui.plotter.XYSeriesPlotter;
 import com.bakudynamics.utils.Logger;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class ComplexityAnalysis {
 
@@ -35,7 +36,7 @@ public class ComplexityAnalysis {
         //var inputSource = new FileInputSource();
 
         while (inputSource.hasNext()) {
-            int[] input = inputSource.next();
+            Integer[] input = IntStream.of(inputSource.next()).boxed().toArray(Integer[]::new);
             run(sort, input);
         }
     }
@@ -44,7 +45,7 @@ public class ComplexityAnalysis {
         plotter.plot("Sorting Algorithms Complexity Analysis", "Input Size", "Running Time (ms)");
     }
 
-    private void run(Sort sort, int[] input) {
+    private void run(Sort sort, Comparable[] input) {
         long start = sample();
         sort.sort(input);
         long end = sample();
