@@ -24,4 +24,19 @@ public class Logger {
         if (DISABLED) return;
         System.out.println(line);
     }
+
+    public static void debug(int i) {
+        if (DISABLED) return;
+        System.out.println(i);
+    }
+
+    public static void debug(long i) {
+        if (DISABLED) return;
+        System.out.println(i);
+    }
+
+    public static void debug(double i) {
+        if (DISABLED) return;
+        System.out.println(i);
+    }
 }

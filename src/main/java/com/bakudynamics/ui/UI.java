@@ -12,7 +12,11 @@ import org.jfree.data.xy.XYDataset;
 
 public class UI {
 
-    public static void plotXYLineChart(String chartTitle, String xAxisLabel, String yAxisLabel, XYDataset dataset, int xTick) {
+    public static void plotXYLineChart(String chartTitle,
+                                       String xAxisLabel,
+                                       String yAxisLabel,
+                                       XYDataset dataset,
+                                       int xTick) {
         var chartPanel = createLineChart(ChartType.XY_LINE_CHART, chartTitle, xAxisLabel, yAxisLabel, dataset);
         chartPanel.pack();
         chartPanel.setVisible(true);
@@ -22,7 +26,10 @@ public class UI {
         xAxis.setTickUnit(new NumberTickUnit(xTick));
     }
 
-    public static void plotCategoryLineChart(String chartTitle, String xAxisLabel, String yAxisLabel, CategoryDataset dataset) {
+    public static void plotCategoryLineChart(String chartTitle,
+                                             String xAxisLabel,
+                                             String yAxisLabel,
+                                             CategoryDataset dataset) {
         var chartPanel = createLineChart(ChartType.LINE_CHART, chartTitle, xAxisLabel, yAxisLabel, dataset);
         chartPanel.pack();
         chartPanel.setVisible(true);

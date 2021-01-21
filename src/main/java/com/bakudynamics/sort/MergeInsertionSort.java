@@ -10,12 +10,12 @@ public class MergeInsertionSort extends MergeSort implements Sort {
     }
 
     @Override
-    public void sort(Comparable[] a, Order order) {
-        if (a == null || a.length == 0) return;
-        mergeSort(a, a.length, order);
+    public <T> void sort(Comparable<T>[] a, Order order) {
+        if (isNullOrEmpty(a)) return;
+        mergeInsertionSort(a, a.length, order);
     }
 
-    private void mergeSort(Comparable[] a, int n, Order order) {
+    private <T> void mergeInsertionSort(Comparable<T>[] a, int n, Order order) {
         if (n < 2) return;
 
         int mid = n / 2;
@@ -29,13 +29,47 @@ public class MergeInsertionSort extends MergeSort implements Sort {
         if (n <= bucketSize) {
             insertionSort.sort(l, order);
         } else {
-            mergeSort(l, mid, order);
+            mergeInsertionSort(l, mid, order);
         }
 
         if (n <= bucketSize) {
             insertionSort.sort(r, order);
         } else {
-            mergeSort(r, n - mid, order);
+            mergeInsertionSort(r, n - mid, order);
+        }
+
+        // merge sorted parts
+        merge(a, l, r, mid, n - mid, order);
+
+    }
+
+    @Override
+    public void sort(int[] a, Order order) {
+        if (isNullOrEmpty(a)) return;
+        mergeInsertionSort(a, a.length, order);
+    }
+
+    private void mergeInsertionSort(int[] a, int n, Order order) {
+        if (n < 2) return;
+
+        int mid = n / 2;
+        var l = new int[mid];
+        var r = new int[n - mid];
+
+        System.arraycopy(a, 0, l, 0, mid);
+        System.arraycopy(a, mid, r, 0, n - mid);
+
+
+        if (n <= bucketSize) {
+            insertionSort.sort(l, order);
+        } else {
+            mergeInsertionSort(l, mid, order);
+        }
+
+        if (n <= bucketSize) {
+            insertionSort.sort(r, order);
+        } else {
+            mergeInsertionSort(r, n - mid, order);
         }
 
         // merge sorted parts
