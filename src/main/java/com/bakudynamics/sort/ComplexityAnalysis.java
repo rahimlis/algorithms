@@ -11,8 +11,8 @@ import java.util.stream.IntStream;
 public class ComplexityAnalysis {
 
     public static final int MIN_INPUT_SIZE = 0;
-    public static final int MAX_INPUT_SIZE = 5000000;
-    public static final int INCREMENT_SIZE = 100000;
+    public static final int MAX_INPUT_SIZE = 100000;
+    public static final int INCREMENT_SIZE = 1000;
 
     private final RunningTimePlotter plotter = new XYSeriesPlotter(MAX_INPUT_SIZE, MIN_INPUT_SIZE);
 
@@ -20,11 +20,13 @@ public class ComplexityAnalysis {
         ComplexityAnalysis analysis = new ComplexityAnalysis();
         List<Sort> sortingAlgorithms = List.of(
                 new MergeSort(),
-                new MergeInsertionSort(64)
+                new InsertionSort(),
+                new MergeInsertionSort(64),
+                new MergeInsertionSort(128)
         );
 
         for (Sort sortingAlgorithm : sortingAlgorithms) {
-            analysis.analyze(sortingAlgorithm);
+            //analysis.analyze(sortingAlgorithm);
             analysis.analyzePrimitiveInt(sortingAlgorithm);
         }
         analysis.plot();

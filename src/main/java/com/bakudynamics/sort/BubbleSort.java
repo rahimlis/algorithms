@@ -32,7 +32,7 @@ public class BubbleSort implements Sort {
         a[j] = temp;
     }
 
-    private <T> void swap(int[] a, int i, int j) {
+    private void swap(int[] a, int i, int j) {
         var temp = a[i];
         a[i] = a[j];
         a[j] = temp;
